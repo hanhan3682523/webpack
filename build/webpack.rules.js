@@ -5,21 +5,23 @@
 */
 const path = require('path');
 const extractTextPlugin = require("extract-text-webpack-plugin");
-
+function resolve(dir) {
+    return path.join(__dirname, '..', dir)
+}
 module.exports = [{
     test: /\.vue$/,
     use: {
         loader: 'vue-loader'
     },
     //加快搜索速度
-    exclude: path.resolve(__dirname, 'node_modules'),
+    exclude: resolve('node_modules'),
 }, {
     test: /\.ts$/,
     use: {
         loader: 'ts-loader'
     },
     //加快搜索速度
-    exclude: path.resolve(__dirname, 'node_modules'),
+    exclude: resolve('node_modules'),
 }, {
     test: /\.js$/,
     use: {
@@ -30,7 +32,7 @@ module.exports = [{
             cacheDirectory: true
         }
     },
-    exclude: /(node_modules|bower_components)/
+    exclude: resolve('node_modules'),
 }, {
     test: /\.css$/,
     use: extractTextPlugin.extract({
@@ -50,14 +52,14 @@ module.exports = [{
         }
     }],
     //只命中src目录中的文件，加快搜索速度
-    include: path.resolve(__dirname, 'src')
+    include: resolve('src')
 }, {
     test: /\.(html)$/,
     use: {
         loader: 'html-loader'
     },
     //只命中src目录中的文件，加快搜索速度
-    include: path.resolve(__dirname, 'src')
+    include: resolve('src')
 }, {
     test: /\.less$/,
     use: extractTextPlugin.extract({
@@ -67,7 +69,7 @@ module.exports = [{
         publicPath: "../"
     }),
     //只命中src目录中的文件，加快搜索速度
-    include: path.resolve(__dirname, 'src')
+    include: resolve('src')
 }, {
     test: /\.(scss|sass)$/,
     // 分离的写法
@@ -78,5 +80,5 @@ module.exports = [{
         publicPath: "../"
     }),
     //只命中src目录中的文件，加快搜索速度
-    include: path.resolve(__dirname, 'src')
+    include: resolve('src')
 }];
